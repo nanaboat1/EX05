@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include "gtest/gtest.h"
 
 // Test vector with Integers
@@ -73,9 +74,8 @@ TEST(Vector, Float) {
 
 }
 
+// Test vector with String
 TEST(Vector, String) { 
-
-
 
     // Testing Single Element in vector
     std::vector <std::string> test_1;
@@ -89,7 +89,6 @@ TEST(Vector, String) {
     ASSERT_NE(test_1[0], "b") << "Element at index 0 is not a";
 
 
-   
     // Push \0 to the vector.
     test_1.push_back("\0");
 
@@ -106,7 +105,6 @@ TEST(Vector, String) {
     EXPECT_EQ(test_1[2], "") << " Testing no character string ";
 
 
-
     // Test
 
     // Clear the vector 
@@ -116,9 +114,25 @@ TEST(Vector, String) {
     ASSERT_NE(test_1[0], "t") << " Value at index 0 is not equal to 6";
     EXPECT_NE(test_1[0], "t") << " Value at index 0 is not equal to 6";
 
+}
 
+// Testing Vector with Algorithm.
+TEST(Vector, find)  {
+
+    std::vector<int> test_2; 
+
+    for ( int i=0; i<10; i++ ) { test_2.push_back(i); }
+    unsigned element;
+
+    element = std::find(test_2[0], test_2[9], 5);
+
+    // Boundary Testing
+
+    ASSERT_EQ( element, 5 );
 
 }
+
+
 
 int main(int argc, char **argv ) {
     ::testing::InitGoogleTest(&argc, argv);
