@@ -116,23 +116,6 @@ TEST(Vector, String) {
 
 }
 
-// Testing Vector with Algorithm.
-TEST(Vector, find)  {
-
-    std::vector<int> test_2; 
-
-    for ( int i=0; i<10; i++ ) { test_2.push_back(i); }
-    unsigned element;
-
-    element = std::find(test_2[0], test_2[9], 5);
-
-    // Boundary Testing
-
-    ASSERT_EQ( element, 5 );
-
-}
-
-
 
 int main(int argc, char **argv ) {
     ::testing::InitGoogleTest(&argc, argv);
