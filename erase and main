@@ -3,15 +3,24 @@
 #include <string>
 #include "gtest/gtest.h"
 
-// Testing Vector with find Algorithm.
-TEST(Vector, find)  {
+// Testing Vector with find Algorithm. 
+// Global values to be used to test.
+std::vector<int> test_2; 
+std::vector<int>::iterator it; 
 
-    std::vector<int> test_2; 
+TEST(Vector_find, FindElements_inAnEmptyVector ) {
 
-    std::vector<int>::iterator it; 
+    it = std::find(test_2.begin(),test_2.end(), 9);
 
-    for ( int i=0; i<10; i++ ) { test_2.push_back(i); }
-    
+    ASSERT_EQ(*it, NULL);
+    EXPECT_EQ(*it, NULL);
+
+}
+
+TEST(Vector_find, GeneralUpperBoundaryTest)  {
+
+    for ( int i=0; i<10; i++ ) test_2.push_back(i); 
+
     // Upper Boundary General Testing
     it = std::find(test_2.begin(),test_2.end(), 9);
     ASSERT_EQ( *it, 9) << " Last element is  9";
@@ -20,103 +29,165 @@ TEST(Vector, find)  {
     ASSERT_NE( *it, 8) << " Last minus 1 element is  8";
     EXPECT_NE( *it, 8) << " Last minus 1 element is  8";
 
+}
+
+TEST(Vector_find, GeneralLowerBoundaryTesting ) {
+
     // Lower Boundary General Testing
     it = std::find(test_2.begin(),test_2.end(), 0);
-    ASSERT_EQ( *it, 0) << " First element is not 0";
+    ASSERT_EQ( *it, 0) << " First element is  0";
     EXPECT_EQ( *it, 0) << " First element is  0";
 
-    ASSERT_NE( *it, 1) << " First plus 1 element is 1";
-    EXPECT_NE( *it, 1) << " First plus 1 element is 1";
 
-    // Robust Lower Boundary Testing
-    it = std::find(test_2.begin(),test_2.end(), 0);
-    ASSERT_EQ( *it, 0) << " Robust testing on Lower Boundary";
-    EXPECT_EQ( *it, 0) << " Robust testing on Lower Boundary";
-    
-    ASSERT_NE( *it, -1) << " Robust testing on Lower Boundary";
-    EXPECT_NE( *it, -1) << " Robust testing on Lower Boundary";
+}
+
+TEST(Vector_find, WeakUpperBoundaryRobustTesting ) {
 
     // Upper  Boundary Robust Testing
     it = std::find(test_2.begin(),test_2.end(), 9);
     ASSERT_EQ( *it, 9) << " Robust testing on Upper Boundary";
     EXPECT_EQ( *it, 9) << " Robust testing on Upper Boundary";
 
-    ASSERT_NE( *it, 10) << " Robust testing on Upper Boundary";
-    EXPECT_NE( *it, 10) << " Robust testing on Upper Boundary";
+}
+
+TEST(Vector_find, StrongUpperBoundRobustTesting ) {
+
+    ASSERT_NE( *it, 10) << " Robust testing on Upper Boundary illegal limit";
+    EXPECT_NE( *it, 10) << " Robust testing on Upper Boundary illegal limit";
+
+}
+
+TEST(Vector_find, WeakLower_BoundRobustTesting ) { 
+
+    // Upper  Boundary Robust Testing
+    it = std::find(test_2.begin(),test_2.end(), 0);
+    ASSERT_EQ( *it, 0) << " Robust testing on Upper Boundary";
+    EXPECT_EQ( *it, 0) << " Robust testing on Upper Boundary";
 
 
-    // Special Case Boundary Testing 
-    it = std::find(test_2.begin(),test_2.end(), 2);
+}
 
-    ASSERT_NE( *it, 2.01) << " Special case testing with a double value";
-    EXPECT_NE( *it, 2.01) << " Special case testing with a double value";
+TEST(Vector_find, StrongLower_BoundRobustTesting ) {
+
+    ASSERT_NE( *it, -1) << " Robust testing on Illegal Lower Boundary";
+    EXPECT_NE( *it, -1) << " Robust testing on Illegal Lower Boundary";
+
+}
+
+TEST(Vector_find, SpecialCaseTesting ) {
 
     ASSERT_NE( *it, 1.999) << " Special case testing with a double value";
     EXPECT_NE( *it, 1.999) << " Special case testing with a double value";
 
 }
 
+TEST(Vector_find, SpecialCaseTestingA ) {
+    // Special Case Boundary Testing 
+    it = std::find(test_2.begin(),test_2.end(), 2);
+
+    ASSERT_NE( *it, 2.01) << " Special case testing with a double value";
+    EXPECT_NE( *it, 2.01) << " Special case testing with a double value";
+
+}
+
+TEST(Vector_find, SpecialCaseTestingB ) {
+
+    // Special Case Boundary Testing 
+    it = std::find(test_2.begin(),test_2.end(), 2);
+
+    ASSERT_NE( *it, INT_MAX) << " Special case testing with a double value";
+    EXPECT_NE( *it, INT_MAX) << " Special case testing with a double value";
+}
+
+
+
 // Testing Vector with Erase Algorithm
-TEST(Vector, Erase) {
+std::vector <int> test_3; 
 
-    std::vector <int> test_2; 
+TEST(Vector_erase, SizeAftererasing) {
 
-    for ( int i=0; i < 10; i++ ) { test_2.push_back(i); }
+    // Push Elements to Vector
+    for ( int i=0; i < 10; i++ ) { test_3.push_back(i); }
 
     // Erasing the Upper Boundary of the Vector
-    test_2.erase(test_2.begin() + 8);
+    test_3.erase(test_3.begin() + 8);
+
+    ASSERT_EQ(test_3.size(), 8) << " Vector size after erasing ";
+    EXPECT_EQ(test_3.size(), 8) << " Vector size after erasing ";
+
+
+}
+TEST( Vector, CheckVectorSizeAfterErasingAfterErasingAnElement ) {
 
     // Test the Size of the Vector Now
-    ASSERT_EQ(test_2.size() ,9) << "After erasing one element, the vector's size is 8"; 
-    EXPECT_EQ(test_2.size(), 9) << "After erasing one element, the vector's size is 8";
+    ASSERT_EQ(test_3.size() ,9) << "After erasing one element, the vector's size is 9"; 
+    EXPECT_EQ(test_3.size(), 9) << "After erasing one element, the vector's size is 9";
 
+}
+
+TEST(Vector_erase, GeneralUpperBoundary ) {
+    // Test the Size of the Vector Now
+    ASSERT_EQ(test_3.size() ,8) << "After erasing two elements, the vector's size is 8"; 
+    EXPECT_EQ(test_3.size(), 8) << "After erasing two elements, the vector's size is 8";
+}
+
+TEST(Vector_erase, WeakRobustUpperBoundary ) {
     // Test the General Upper Boundary of the Vector.
-    EXPECT_EQ(test_2[8], 8) << "After erasing, last element is 8 ";
-    ASSERT_EQ(test_2[8], 8) << "After erasing, last element is 8 ";
+    EXPECT_EQ(test_3[8], 8) << "After erasing, last element is 8 ";
+    ASSERT_EQ(test_3[8], 8) << "After erasing, last element is 8 ";
+ }
+
+TEST(Vector_erase, StrongRobustUpperBoundary ) {
 
     // Test the Robust Upper Boundary of the element. 
-    ASSERT_NE(test_2[8], 9) << " Testing beyond the legal upper boundary of the vector";
-    EXPECT_NE(test_2[8], 9) << " Testing beyond the legal upper boundary of the vector";
+    ASSERT_NE(test_3[8], 9) << " Testing beyond the legal upper boundary of the vector";
+    EXPECT_NE(test_3[8], 9) << " Testing beyond the legal upper boundary of the vector";
+}
 
-    test_2.erase(test_2.begin()); // erase the first element
-
-    // Test the Size of the Vector Now
-    ASSERT_EQ(test_2.size() ,8) << "After erasing two elements, the vector's size is 8"; 
-    EXPECT_EQ(test_2.size(), 8) << "After erasing two elements, the vector's size is 8";
+TEST(Vector_erase, GeneralLowerBoundary) {
+    test_3.erase(test_3.begin()); // erase the first element
 
     // Test the General Lower Boundary of the Vector
-    ASSERT_EQ(test_2[0], 1) << " After erasing, the first element is 1";
-    EXPECT_EQ(test_2[0], 1) << " After erasing, the first element is 1";
+    ASSERT_EQ(test_3[0], 1) << " After erasing, the first element is 1";
+    EXPECT_EQ(test_3[0], 1) << " After erasing, the first element is 1";
+
+}
+
+TEST(Vector_erase, WeakRobustLowerBoundary ) {
+
+    // Test the General Lower Boundary of the Vector
+    ASSERT_EQ(test_3[0], 1) << " After erasing, the first element is 1";
+    EXPECT_EQ(test_3[0], 1) << " After erasing, the first element is 1";
+
+}
+
+TEST(Vector_erase, StrongRobustlowerBoundaryTesting ) {
 
     // Test the Robust Lower Boundary of the Vector
-    ASSERT_NE(test_2[0], 0) << " Testing beyond the legal lower boundary";
-    EXPECT_NE(test_2[0], 0 ) << " Testing beyond the legal lower boundary";
+    ASSERT_NE(test_3[0], 0) << " Testing beyond the legal lower boundary";
+    EXPECT_NE(test_3[0], 0 ) << " Testing beyond the legal lower boundary";
 
+}
 
+TEST(Vector_erase, EmptyVector ) {
     // Special Case. Test an empty vector
     std::vector <int> test; 
+    test.erase(test.begin());
 
     // Test whether the vector is empty.
     ASSERT_EQ(test.size(), 0) << " Vector of empty size is 0";
     EXPECT_EQ(test.size(), 0) << " Vector of empty size is 0";
 
-    // Erase an element in the vector
-    test.erase(test.begin());
 
-    // Special Case when the Vector is empty. 
-    ASSERT_EQ(test[0], NULL) << " No element exist in the vector";
-    EXPECT_EQ(test[0], NULL) << " No element exist in the vector";
+}
+
+TEST(Vector, SingleElementVector ) {
 
     std::vector <int> win;
     win.push_back(1);
 
     ASSERT_EQ(win[0], 1) << " First and last element is 1";
     EXPECT_EQ(win[0], 1) << " First and last element is 1";
-
-
-
-
-
 
 }
 
@@ -125,3 +196,4 @@ int main(int argc, char **argv ) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
+
